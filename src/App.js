@@ -5,6 +5,8 @@ import "./App.css";
 class App extends Component {
   render() {
     return (
+      //container is the most basic layout element in bootstrap
+      //& required when using default grid system
       <main className="container">
         <Movies />
       </main>

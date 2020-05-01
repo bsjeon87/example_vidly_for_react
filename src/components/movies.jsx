@@ -3,6 +3,7 @@ import { getMovies } from "../services/fakeMovieService";
 import Like from "./common/like";
 import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
+import ListGroup from "./common/listGroup";
 
 class Movies extends Component {
   state = { movies: getMovies(), pageSize: 4, currentPage: 1 };
@@ -31,7 +32,7 @@ class Movies extends Component {
 
     const movies = paginate(all_movies, currentPage, pageSize);
     return (
-      <React.Fragment>
+      <div className="row">
         <p> Showing {count} movies in the database.</p>
         <table className="table">
           <thead>
@@ -75,7 +76,7 @@ class Movies extends Component {
           currentPage={currentPage}
           onPageChange={this.handlePageChange}
         />
-      </React.Fragment>
+      </div>
     );
   }
 }

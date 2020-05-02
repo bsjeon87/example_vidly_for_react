@@ -10,7 +10,8 @@ class Movies extends Component {
   state = { movies: [], genres: [], pageSize: 4, currentPage: 1 };
 
   componentDidMount() {
-    this.setState({ movies: getMovies(), genres: getGenres() });
+    const genres = [{ name: "All Genres" }, ...getGenres()];
+    this.setState({ movies: getMovies(), genres: genres });
   }
 
   handleDelete = (movie) => {
@@ -31,15 +32,25 @@ class Movies extends Component {
   };
 
   handleGenreSelect = (genre) => {
-    this.setState({ selectedGenre: genre });
+    this.setState({ selectedGenre: genre, currentPage: 1 });
   };
 
   render() {
     const { length: count } = this.state.movies; //movies의 length를 count로 받음.
-    const { pageSize, currentPage, movies: all_movies } = this.state;
+    const {
+      pageSize,
+      currentPage,
+      selectedGenre,
+      movies: all_movies,
+    } = this.state;
     if (count === 0) return <p> There are no movies in the databases</p>;
 
-    const movies = paginate(all_movies, currentPage, pageSize);
+    const filtered =
+      selectedGenre && selectedGenre._id
+        ? all_movies.filter((m) => m.genre._id === selectedGenre._id)
+        : all_movies;
+
+    const movies = paginate(filtered, currentPage, pageSize);
     return (
       <div className="row">
         <div className="col-3">
@@ -88,7 +99,7 @@ class Movies extends Component {
             </tbody>
           </table>
           <Pagination
-            itemsCount={count}
+            itemsCount={filtered.length}
             pageSize={pageSize}
             currentPage={currentPage}
             onPageChange={this.handlePageChange}

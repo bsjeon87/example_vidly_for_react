@@ -19,6 +19,16 @@ class LoginForm extends Component {
     //   this.username.current.focus();
   }
 
+  validate = () => {
+    const options = { abortEarly: false };
+    const { error } = Joi.validate(this.state.account, this.schema, options);
+    if (!error) return null;
+
+    const errors = {};
+    for (let item of error.details) errors[item.path[0]] = item.message;
+
+    return errors;
+  };
   validateProperty = ({ name, value }) => {
     if (name === "username") {
       if (value.trim() === "") return "Username is required";
@@ -37,17 +47,6 @@ class LoginForm extends Component {
     const account = { ...this.state.account };
     account[e.currentTarget.name] = e.currentTarget.value;
     this.setState({ account, errors });
-  };
-
-  validate = () => {
-    const options = { abortEarly: false };
-    const { error } = Joi.validate(this.state.account, this.schema, options);
-    if (!error) return null;
-
-    const errors = {};
-    for (let item of error.details) errors[item.path[0]] = item.message;
-
-    return errors;
   };
 
   handleSubmit = (e) => {

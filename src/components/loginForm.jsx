@@ -13,10 +13,24 @@ class LoginForm extends Component {
     //   this.username.current.focus();
   }
 
+  validateProperty = ({ name, value }) => {
+    if (name === "username") {
+      if (value.trim() === "") return "Username is required";
+    }
+    if (name === "password") {
+      if (value.trim() === "") return "Username is required";
+    }
+  };
+
   handleChange = (e) => {
+    const errors = { ...this.state.errors };
+    const errorMessage = this.validateProperty(e.currentTarget);
+    if (errorMessage) errors[e.currentTarget.name] = errorMessage;
+    else delete errors[e.currentTarget.name];
+
     const account = { ...this.state.account };
     account[e.currentTarget.name] = e.currentTarget.value;
-    this.setState({ account });
+    this.setState({ account, errors });
   };
 
   validate = () => {

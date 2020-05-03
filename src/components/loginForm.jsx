@@ -6,6 +6,7 @@ class LoginForm extends Component {
 
   state = {
     account: { username: "", password: "" },
+    errors: {},
   };
 
   componentDidMount() {
@@ -18,13 +19,26 @@ class LoginForm extends Component {
     this.setState({ account });
   };
 
+  validate = () => {
+    const errors = {};
+
+    const { account } = this.state;
+    if (account.username.trim() === "")
+      errors.username = "Username is required";
+    if (account.password.trim() === "")
+      errors.password = "Password is required";
+
+    return Object.keys(errors).length === 0 ? null : errors;
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
 
-    const username = this.username.current.value;
-    // 왠만하면 아래처럼 사용하면 좋지 않음. dom을 사용하는것이 유지/테스트에 유리.
-    //  const username = document.getElementById("username").value;
-    console.log("submit", username);
+    const errors = this.validatie();
+    this.setState({ errors });
+    if (errors) return;
+
+    //call the server
   };
   render() {
     const { account } = this.state;

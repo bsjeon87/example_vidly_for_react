@@ -3,9 +3,19 @@ import React, { Component } from "react";
 class LoginForm extends Component {
   username = React.createRef(); // ref를 많이 사용하면 좋지않음.
 
+  state = {
+    account: { username: "", password: "" },
+  };
+
   componentDidMount() {
     this.username.current.focus();
   }
+
+  handleChange = (e) => {
+    const account = { ...this.state.account };
+    account[e.currentTarget.name] = e.currentTarget.value;
+    this.setState({ account });
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -24,14 +34,25 @@ class LoginForm extends Component {
             <label htmlFor="username">UserName</label>
             <input
               ref={this.username}
+              //초기값.(value)
+              value={this.state.account.username}
+              onChange={this.handleChange}
               id="username"
+              name="username"
               type="text"
               className="form-control"
             />
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input id="password" type="text" className="form-control" />
+            <input
+              value={this.state.account.password}
+              onChange={this.handleChange}
+              id="password"
+              name="password"
+              type="text"
+              className="form-control"
+            />
           </div>
           <button className="btn btn-primary">Login</button>
         </form>

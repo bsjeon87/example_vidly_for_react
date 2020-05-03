@@ -1,16 +1,8 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
-import Input from "./common/input";
 import Form from "./common/form";
 
 class LoginForm extends Form {
-  username = React.createRef(); // ref를 많이 사용하면 좋지않음.
-
-  state = {
-    data: { username: "", password: "" },
-    errors: {},
-  };
-
   schema = {
     username: Joi.string().required().label("Username"),
     password: Joi.string().required().label("password"),

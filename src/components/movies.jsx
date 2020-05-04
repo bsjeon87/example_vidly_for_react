@@ -48,6 +48,8 @@ class Movies extends Component {
 
   handleGenreSelect = (genre) => {
     this.setState({ selectedGenre: genre, searchQuery: "", currentPage: 1 });
+    //searchQuery shouldn't be null
+    //because searchQuery is the value for control component for input
   };
 
   handleSearch = (query) => {

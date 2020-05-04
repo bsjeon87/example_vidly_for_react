@@ -1,0 +1,28 @@
+<html lang="en">
+<head/>
+<body>
+<input type=text/>
+<p id="values"></p>
+<p id="values2"></p>
+<script>
+const input = document.querySelector('input')
+input.addEventListener('input', updateValue);
+input.addEventListener('keydown', updateValue2);
+input.addEventListener('keyup', updateValue3);
+const log = document.getElementById('values');
+const log2 = document.getElementById('values2');
+a="ss";
+function updateValue(e) {
+  log.textContent = e.target.value;
+  e.target.value = a;
+}
+
+function updateValue2(e) {
+log.textContent = e.target.value;
+}
+function updateValue3(e) {
+log2.textContent = e.target.value;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+아래 예제와 같은 방법으로 입력해도 입력이 안되는 효과를 줄수 있음.
+react의 경우 document들의 element들의 eveent들은
+ react java script의 event listener에 등록되어있음.
+
+ex: <input type="text" ~~~/>
+=> input -> react-dom.development.js , keydown -> react-dom.development.js , ...
+
+
+<input type=text/>
+
+<script>
+const input = document.querySelector('input')
+input.addEventListener('input', updateValue);
+a="ss";
+function updateValue(e) {
+  e.target.value = a;
+}

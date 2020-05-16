@@ -1,28 +1,48 @@
 <html lang="en">
 <head/>
 <body>
-<input type=text/>
-<p id="values"></p>
-<p id="values2"></p>
 <script>
-const input = document.querySelector('input')
-input.addEventListener('input', updateValue);
-input.addEventListener('keydown', updateValue2);
-input.addEventListener('keyup', updateValue3);
-const log = document.getElementById('values');
-const log2 = document.getElementById('values2');
-a="ss";
-function updateValue(e) {
-  log.textContent = e.target.value;
-  e.target.value = a;
+/*function getCounter() {
+    let counter = function (start) { console.log("aa"); };
+    counter.interval = 123;
+    counter.reset = function () { console.log("baa");};
+    return counter;
+}
+count = getCounter();
+count();
+count.reset();
+*/
+var first = 10;
+var second = 0;
+var result = 0;
+function add(x, y) {
+  return x + y
 }
 
-function updateValue2(e) {
-log.textContent = e.target.value;
+function call_promisefun(){
+	 return new Promise(resolve => { setTimeout(function() {
+	  result = add(first, second)
+	  console.log(result) // 40
+	  resolve();
+	}, 1000) } );
+	
 }
-function updateValue3(e) {
-log2.textContent = e.target.value;
+
+async function calc(){
+	console.log("result12",result);
+	await call_promisefun();
+	first = 20;
+	
+	console.log("result1",first);
 }
+
+function calc2(){
+   call_promisefun().then(function() {console.log("bbdc");} );
+};
+
+calc();
+console.log("bbd");
+
 </script>
 </body>
 </html>
